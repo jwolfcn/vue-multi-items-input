@@ -1,16 +1,17 @@
 <template lang="html">
   <div class="jw__container">
-    <input type="search" 
-          v-bind:value="value"
-          @input="input"
-          v-bind="[$attrs]"
-          :placeholder="placeholder"
-          :disabled="disabled"
-          @blur="blur" @focus="focus"
-          @keyup.enter="keyEnter" @keydown.tab="keyEnter" 
-          @keydown.up="keyUp" @keydown.down="keyDown">
+    <input type="text" 
+      autocomplete="off"
+      v-bind:value="value"
+      @input="input"
+      v-bind="[$attrs]"
+      :placeholder="placeholder"
+      :disabled="disabled"
+      @blur="blur" @focus="focus"
+      @keyup.enter="keyEnter" @keydown.tab.prevent="keyEnter" 
+      @keydown.up="keyUp" @keydown.down="keyDown">
     <div class="jw-list" v-if="show">
-      <div class="jw-list-item" v-for="(item, i) in internalItems" :ref="'jw__item'+i" v-bind:key="'jw__item'+i" @click="onClickItem(item)"
+      <div class="jw-list-item" v-for="(item, i) in internalItems" :ref="'jw__item'+i" v-bind:key="'jw__item'+i" @click.stop="onClickItem(item)"
            :class="{'jw-list-active': i === cursor}">
         <div>{{item.name}}</div>
       </div>
@@ -29,7 +30,7 @@ export default {
       type: Function,
       default: item => item
     },
-    triggerWhileFocus: {
+    triggerOnFocus: {
       type: Boolean
     },
     fetch: {
@@ -41,7 +42,6 @@ export default {
   },
   data() {
     return {
-      searchText: '',
       showList: false,
       cursor: -1,
       selectedItem: null,
@@ -57,13 +57,6 @@ export default {
     }
   },
   methods: {
-    input(e) {
-      this.$emit('input', e.target.value)
-      this.__fetch()
-    },
-    focus() {
-      return this.triggerWhileFocus && this.__fetch()
-    },
     /** 
      * Trigger this.fetch, set the items by argument of callback
      * */
@@ -72,8 +65,35 @@ export default {
           this.fetch(this.value, (arr) => {
             this.internalItems = arr
             this.showList = true
-          })}
-        }),
+          })
+        }
+      }
+    ),
+    /** 
+     * Make the focus item scroll into view
+    */
+    __itemView(item) {
+      if (item && item.scrollIntoView) {
+        item.scrollIntoView(false)
+      }
+    },
+    /** 
+     * Set one item selected
+     * @param {item} Item which should be selected
+     */
+    __selectItem(item) {
+      if (item) {
+        this.selectedItem = item
+        this.$emit('select', item)
+      } 
+    },
+    input(e) {
+      this.$emit('input', e.target.value)
+      this.__fetch()
+    },
+    focus() {
+      return this.triggerOnFocus && this.__fetch()
+    },
     /**
      * Just like clickoutside, setTimeout makes the "item click" event work
      */
@@ -87,20 +107,11 @@ export default {
       this.showList = false
       this.__selectItem(item)
     },
-    /** 
-     * Set one item selected
-     * @param {item} Item which should be selected
-     */
-    __selectItem(item) {
-      if (item) {
-        this.selectedItem = item
-        this.$emit('select', item)
-      } 
-    },
+
     keyUp() {
-      if (this.cursor > -1) {
+      if (this.cursor > 0) {
         this.cursor --
-        this.itemView(
+        this.__itemView(
           this.$el.getElementsByClassName('jw-list-item')[
             this.cursor
           ]
@@ -108,23 +119,16 @@ export default {
       }
     },
     keyDown() {
-      if (this.cursor < this.internalItems.length) {
+      if (this.cursor < this.internalItems.length - 1) {
         this.cursor ++
-        this.itemView(
+        this.__itemView(
           this.$el.getElementsByClassName('jw-list-item')[
             this.cursor
           ]
         );
       }
     },
-    /** 
-     * Make the focus item scroll into view
-    */
-    itemView(item) {
-      if (item && item.scrollIntoView) {
-        item.scrollIntoView(false)
-      }
-    },
+
     keyEnter() {
       if (this.showList && this.internalItems[this.cursor]) {
         this.__selectItem(this.internalItems[this.cursor])
@@ -140,24 +144,30 @@ export default {
 }
 </script>
 
-<style  lang='scss'>
+<style rel="stylesheet/scss" lang="scss" scoped>
 .jw__container {
   position: relative;
   input {
     width: 100%;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
   }
   .jw-list {
     position: absolute;
     max-height: 200px;
     border: 1px solid #eee;
     overflow-y: auto;
+    top: 25px;
     .jw-list-item {
-      padding: 2px 7px;
+      padding: 4px 7px;
       min-width: 50px;
       cursor: pointer;
       text-align: center;
+      background: #fff;
       &:hover, &.jw-list-active {
-        background: #eee;
+        background: #20a0ff;
+        color: #fff;
       }
     }
   }
