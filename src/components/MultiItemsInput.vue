@@ -1,5 +1,5 @@
 <template>
-  <div class="jw-container" :style="{height: height + 'px'}">
+  <div class="jw-container" :style="{height: height + 'px'}" @click.self.prevent="setLastItemFocus">
     <input-item
       v-for="(item,i) in selectedItems"
       :key="'selectedItems'+i"
@@ -124,6 +124,10 @@ export default {
         });
       }
       this.$emit('delete', item, this.selectedItems)
+    },
+    setLastItemFocus () {
+      var component = this.$refs['jw-selectedItems' + (this.selectedItems.length-1)][0]
+      component && component.$el.querySelector('input').focus()
     }
   }
 };
@@ -138,6 +142,7 @@ export default {
   background-color: #e5e9f2;
   padding: 5px;
   text-align: left;
+  cursor: text;
   &:after {
     content: "";
     display: block;

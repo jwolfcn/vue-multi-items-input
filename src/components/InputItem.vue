@@ -11,7 +11,6 @@
       ref="input"
       :triggerOnFocus="triggerOnFocus"
       @select="select"
-      @blur="blur"
       :fetch="fetchSuggestions"
     >
     </autocomplete>
