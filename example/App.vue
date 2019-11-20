@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <multi-items-input
+    <MultiItemsInput
       :fetch="search"
       placeholder="请输入关键字"
       :height="100"
@@ -14,12 +14,11 @@
 </template>
 
 <script>
-import MultiItemsInput from './components/MultiItemsInput.vue'
 
 export default {
   name: 'app',
   components: {
-    MultiItemsInput
+    // MultiItemsInput
   },
   data () {
     return {

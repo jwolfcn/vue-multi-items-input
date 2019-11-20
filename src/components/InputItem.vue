@@ -116,6 +116,7 @@ export default {
       // height: 25px;
       float: left;
       margin-top: 3px;
+      color: #5f5f6e;
       &::placeholder {
         color:rgb(129, 127, 127);
         font-size: 16px;

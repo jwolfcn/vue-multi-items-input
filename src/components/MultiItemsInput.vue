@@ -10,7 +10,7 @@
       :ref="'jw-selectedItems'+i"
       @select="(item) => {return addSelectedItemsGenerator(i)(item)}"
       :fetch-suggestions="fetch"
-      :trigger-on-focus="true"
+      :trigger-on-focus="triggerOnFocus"
       :suffix="separator"
     ></input-item>
     <auto-complete-input
@@ -18,7 +18,7 @@
       v-if="selectedItems.length === 0"
       class="pre-input"
       v-model="keywords"
-      :trigger-on-focus="true"
+      :trigger-on-focus="triggerOnFocus"
       @select="(item) => {return addSelectedItemsGenerator(-1)(item)}"
       :fetch="fetch"
       :placeholder="placeholder"
@@ -41,7 +41,8 @@ export default {
       type: Function
     },
     triggerOnFocus: {
-      type: Boolean
+      type: Boolean,
+      default: true
     },
     placeholder: {
       type: String
@@ -96,7 +97,7 @@ export default {
             dom && dom[0] && dom[0].$el.querySelector("input").focus();
           }
         });
-        this.$emit('select', item, index);
+        this.$emit('select', this.selectedItems, item);
       };
     },
     /**
@@ -126,6 +127,9 @@ export default {
       this.$emit('delete', item, this.selectedItems)
     },
     setLastItemFocus () {
+      if (this.selectedItems.length < 1) {
+        return
+      }
       var component = this.$refs['jw-selectedItems' + (this.selectedItems.length-1)][0]
       component && component.$el.querySelector('input').focus()
     }
@@ -143,6 +147,7 @@ export default {
   padding: 5px;
   text-align: left;
   cursor: text;
+  // overflow-y: auto;
   &:after {
     content: "";
     display: block;
