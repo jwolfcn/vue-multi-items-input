@@ -44,6 +44,7 @@ Then you can use the tag  *multi-items-input*
     separator=";"
     @select="select"
     @delete="onDelete"
+    :selection-only="false"
 ></multi-items-input>
 ```
 For more details, refer to the example directory.
@@ -52,11 +53,13 @@ For more details, refer to the example directory.
 ## Properties
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| placeholder | String |  | Place holder of input |
-| separator | String |  | Separator between items |
-| height | Number | 100 | Height of the container |
+| v-model | Array |  | Binding value. Each object within it should be like `{name: 'xx', id: xx}` |
+| placeholder | String |  | Place holder of input. |
+| separator | String |  | Separator between items. |
+| height | Number | 100 | Height of the container. |
 | fetch | Function(queryStr, done) || Triggered to request for suggestion. Keywords would passed as the first parameter. The second parameter is a callback function which notifys the request is completed. |
-|trigger-on-focus|Boolean| true| Whether trigger the  fetch function on focus|
+|trigger-on-focus|Boolean| true| Whether trigger the  fetch function on focus.|
+|selection-only|Boolean| false| Whether the user should select from the suggestion.|
 
 
 ## Events

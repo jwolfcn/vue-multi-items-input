@@ -2,6 +2,7 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <multi-items-input
+      v-model="arr"
       :fetch="search"
       placeholder="请输入关键字"
       :height="100"
@@ -10,7 +11,7 @@
       @select="select"
       @delete="onDelete"
     />
-    <p>{{data}}</p>
+    <p>{{arr}}</p>
   </div>
 </template>
 
@@ -24,7 +25,16 @@ export default {
   },
   data () {
     return {
-      data: null
+      data: null,
+      arr: [
+        { name: "雪梨", id: 23 },
+        { name: "牛杂", id: 24 },
+        { name: "牛油", id: 25 },
+        { name: "牛舌", id: 26 },
+        { name: "牛鼻", id: 27 },
+        { name: "牛尾", id: 28 },
+        { name: "牛百叶", id: 29 }
+      ]
     }
   },
   methods: {

@@ -39,6 +39,9 @@ export default {
     InputItem
   },
   props: {
+    value: {
+      type: Array
+    },
     fetch: {
       type: Function
     },
@@ -71,6 +74,7 @@ export default {
     };
   },
   mounted() {
+    Array.isArray(this.value) && (this.selectedItems = this.value)
     this.$refs["pre-input"].$el.querySelector("input").focus();
   },
   methods: {
@@ -104,6 +108,7 @@ export default {
           }
         });
         this.$emit('select', this.selectedItems, item);
+        this.$emit('input', this.selectedItems)
       };
     },
     /**
@@ -126,6 +131,7 @@ export default {
           });
         }
         this.$emit('delete', item, this.selectedItems)
+        this.$emit('input', this.selectedItems)
       }
     },
     setLastItemFocus () {
@@ -134,6 +140,17 @@ export default {
       }
       var component = this.$refs['jw-selectedItems' + (this.selectedItems.length-1)][0]
       component && component.$el.querySelector('input').focus()
+    }
+  },
+  watch: {
+    value () {
+      let result = [];
+      if (Array.isArray(this.value)) {
+        this.value.forEach(value => {
+          result.push(value);
+        });
+      }
+      this.selectedItems = result;
     }
   }
 };
