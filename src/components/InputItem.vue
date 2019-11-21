@@ -12,6 +12,7 @@
       :triggerOnFocus="triggerOnFocus"
       @select="select"
       :fetch="fetchSuggestions"
+      :selection-only="selectionOnly"
     >
     </autocomplete>
     <pre style="font-size: 16px;visibility: hidden;position: fixed;z-index: -1;bottom: -99999px;" ref="sensor">{{v}}</pre>
@@ -44,7 +45,8 @@ export default {
     },
     fetchSuggestions: {
       type: Function
-    }
+    },
+    selectionOnly: { type: Boolean, default: false }
   },
   data () {
     return {

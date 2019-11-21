@@ -38,7 +38,8 @@ export default {
     },
     placeholder: String,
     disabled: { type: Boolean, default: false },
-    keepOpen: { type: Boolean, default: false }
+    keepOpen: { type: Boolean, default: false },
+    selectionOnly: { type: Boolean, default: false }
   },
   data() {
     return {
@@ -54,6 +55,9 @@ export default {
     },
     show() {
       return (this.showList && this.hasItems) || this.keepOpen
+    },
+    minCursor () {
+      return this.selectionOnly ? 0 : -1
     }
   },
   methods: {
@@ -109,7 +113,7 @@ export default {
     },
 
     keyUp() {
-      if (this.cursor > 0) {
+      if (this.cursor > this.minCursor) {
         this.cursor --
         this.__itemView(
           this.$el.getElementsByClassName('jw-list-item')[
@@ -130,6 +134,11 @@ export default {
     },
 
     keyEnter() {
+      if (this.cursor < 0 && this.value.length > 0) {
+        this.__selectItem({
+          name: this.value, id: null
+        })
+      }
       if (this.showList && this.internalItems[this.cursor]) {
         this.__selectItem(this.internalItems[this.cursor])
         this.showList = false
@@ -138,7 +147,7 @@ export default {
   },
   watch: {
     show () {
-      this.cursor = 0
+      this.cursor = this.minCursor
     }
   }
 }

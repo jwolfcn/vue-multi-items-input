@@ -5,13 +5,14 @@
       :key="'selectedItems'+i"
       :name="item.name"
       :editable="true"
-      @deleteClick="deleteItem(item)"
+      @deleteClick="() => {return deleteItemGenerator(i)(item)}"
       :id="item.id"
       :ref="'jw-selectedItems'+i"
-      @select="(item) => {return addSelectedItemsGenerator(i)(item)}"
+      @select="(obj) => {return addSelectedItemsGenerator(i)(obj)}"
       :fetch-suggestions="fetch"
       :trigger-on-focus="triggerOnFocus"
       :suffix="separator"
+      :selection-only="selectionOnly"
     ></input-item>
     <auto-complete-input
       ref="pre-input"
@@ -19,9 +20,10 @@
       class="pre-input"
       v-model="keywords"
       :trigger-on-focus="triggerOnFocus"
-      @select="(item) => {return addSelectedItemsGenerator(-1)(item)}"
+      @select="(obj) => {return addSelectedItemsGenerator(-1)(obj)}"
       :fetch="fetch"
       :placeholder="placeholder"
+      :selection-only="selectionOnly"
     ></auto-complete-input>
   </div>
 </template>
@@ -53,6 +55,10 @@ export default {
     separator: {
       type: String,
       default: ' '
+    },
+    selectionOnly: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -104,27 +110,23 @@ export default {
      * @description Delete the specific item by arg, then reset the cursor.
      * @param {item} Item which should be delete
      */
-    deleteItem(item) {
-      var [...reverseArr] = this.selectedItems;
-      reverseArr.reverse();
-      var index = reverseArr.findIndex(obj => {
-        return item.id === obj.id;
-      });
-      index = this.selectedItems.length - 1 - index;
-      var currentIndex = index > 0 ? index - 1 : undefined;
-      this.selectedItems.splice(index, 1);
-      if (typeof currentIndex !== "undefined") {
-        this.$nextTick(() => {
-          let dom = this.$refs["jw-selectedItems" + currentIndex][0];
-          dom && dom.$el.querySelector("input").focus();
-        });
-      } else {
-        this.$nextTick(() => {
-          let dom = this.$refs["pre-input"];
-          dom && dom.$el.querySelector("input").focus();
-        });
+    deleteItemGenerator(index) {
+      return item => {
+        this.selectedItems.splice(index, 1);
+        if (index) {
+          let currentIndex = index - 1
+          this.$nextTick(() => {
+            let dom = this.$refs["jw-selectedItems" + currentIndex][0];
+            dom && dom.$el.querySelector("input").focus();
+          });
+        } else {
+          this.$nextTick(() => {
+            let dom = this.$refs["pre-input"];
+            dom && dom.$el.querySelector("input").focus();
+          });
+        }
+        this.$emit('delete', item, this.selectedItems)
       }
-      this.$emit('delete', item, this.selectedItems)
     },
     setLastItemFocus () {
       if (this.selectedItems.length < 1) {

@@ -6,6 +6,7 @@
       placeholder="请输入关键字"
       :height="100"
       separator=";"
+      :selection-only="true"
       @select="select"
       @delete="onDelete"
     />

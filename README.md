@@ -46,6 +46,7 @@ Then you can use the tag  *multi-items-input*
     @delete="onDelete"
 ></multi-items-input>
 ```
+For more details, refer to the example directory.
 ## API
 
 ## Properties
@@ -63,6 +64,7 @@ Then you can use the tag  *multi-items-input*
 |-------|------|-------------|
 | delete | Array, Object | The first parameter is the array of the selected items. Second is the item which deleted. |
 | select | Object, Array | The first parameter is the item added. Second is the array of the selected items.  |
+
 ## License
 
 MIT © [Jwolf](https://jwolf.cn)
