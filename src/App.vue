@@ -7,7 +7,7 @@
       placeholder="请输入关键字"
       :height="100"
       separator=";"
-      :selection-only="true"
+      :selection-only="false"
       @select="select"
       @delete="onDelete"
     />
