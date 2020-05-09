@@ -5,7 +5,7 @@
 
 You can select multiple items just with keyboard. Input some keywords and using ↓, ↑,*tab* or *enter* to select, *delete* to remove. 
 
-[![header](https://jwolfcn.github.io/vue-multi-items-input/demo.gif)](https://www.npmjs.com/package/multi-items-input)
+[![header](https://jwolf.cn/uploads/1259098224027897856.gif)](https://www.npmjs.com/package/multi-items-input)
 
 ## Table of contents
 
