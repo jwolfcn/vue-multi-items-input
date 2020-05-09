@@ -13,6 +13,8 @@
       :trigger-on-focus="triggerOnFocus"
       :suffix="separator"
       :selection-only="selectionOnly"
+      :marked="marked"
+      @itemClick="handleItemClick"
     ></input-item>
     <auto-complete-input
       ref="pre-input"
@@ -70,7 +72,8 @@ export default {
       inputWidth: "60",
       editable: true,
       selectedItems: [],
-      keywords: ""
+      keywords: "",
+      marked: ""
     };
   },
   mounted() {
@@ -140,6 +143,9 @@ export default {
       }
       var component = this.$refs['jw-selectedItems' + (this.selectedItems.length-1)][0]
       component && component.$el.querySelector('input').focus()
+    },
+    handleItemClick (item) {
+      this.marked = item.name
     }
   },
   watch: {

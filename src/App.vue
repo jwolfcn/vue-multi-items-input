@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <p>测试： <input /></p>
     <img alt="Vue logo" src="./assets/logo.png">
     <multi-items-input
       v-model="arr"
@@ -27,34 +28,34 @@ export default {
     return {
       data: null,
       arr: [
-        { name: "雪梨", id: 23 },
-        { name: "牛杂", id: 24 },
-        { name: "牛油", id: 25 },
-        { name: "牛舌", id: 26 },
-        { name: "牛鼻", id: 27 },
-        { name: "牛尾", id: 28 },
-        { name: "牛百叶", id: 29 }
+        { name: "xueli@jwolf.cn", id: 23 },
+        { name: "xiaohong@jwolf.cn", id: 24 },
+        { name: "xiaoming@jwolf.cn", id: 25 },
+        { name: "xiaoting@jwolf.cn", id: 26 },
+        { name: "xiaoze@jwolf.cn", id: 27 },
+        { name: "xiaobei@jwolf.cn", id: 28 },
+        { name: "xiaowei@jwolf.cnxxx", id: 29 }
       ]
     }
   },
   methods: {
     search (keywords, cb) {
       var list = [
-        { name: "牛奶", id: 1 },
-        { name: "猪肉", id: 2 },
-        { name: "牛肉", id: 3 },
-        { name: "苹果", id: 12 },
-        { name: "香蕉", id: 13 },
-        { name: "牛腿", id: 14 },
-        { name: "猪肝", id: 21 },
-        { name: "牛排", id: 22 },
-        { name: "雪梨", id: 23 },
-        { name: "牛杂", id: 24 },
-        { name: "牛油", id: 25 },
-        { name: "牛舌", id: 26 },
-        { name: "牛鼻", id: 27 },
-        { name: "牛尾", id: 28 },
-        { name: "牛百叶", id: 29 }
+        { name: "xiaob@jwolf.cn", id: 1 },
+        { name: "xiaorou@jwolf.cn", id: 2 },
+        { name: "liming@jwolf.cn", id: 3 },
+        { name: "lizz@jwolf.cn", id: 12 },
+        { name: "wess@jwolf.cn", id: 13 },
+        { name: "liang@jwolf.cn", id: 14 },
+        { name: "abd@jwolf.cn", id: 21 },
+        { name: "bbcc@jwolf.cn", id: 22 },
+        { name: "xueli@jwolf.cn", id: 23 },
+        { name: "xiaohong@jwolf.cn", id: 24 },
+        { name: "xiaoming@jwolf.cn", id: 25 },
+        { name: "xiaoting@jwolf.cn", id: 26 },
+        { name: "xiaoze@jwolf.cn", id: 27 },
+        { name: "xiaobei@jwolf.cn", id: 28 },
+        { name: "xiaowei@jwolf.cn", id: 29 }
       ];
       setTimeout(() => {
         if (keywords) {
@@ -83,7 +84,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -91,4 +92,5 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 </style>

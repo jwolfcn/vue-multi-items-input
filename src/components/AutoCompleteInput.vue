@@ -1,29 +1,55 @@
 <template lang="html">
-  <div class="jw__container">
-    <input type="text" 
-      autocomplete="off"
-      v-bind:value="value"
-      @input="input"
-      v-bind="[$attrs]"
-      :placeholder="placeholder"
-      :disabled="disabled"
-      @blur="blur" @focus="focus"
-      @keyup.enter="keyEnter" @keydown.tab.prevent="keyEnter" 
-      @keydown.up="keyUp" @keydown.down="keyDown">
-    <div class="jw-list" v-if="show">
-      <div class="jw-list-item" v-for="(item, i) in internalItems" :ref="'jw__item'+i" v-bind:key="'jw__item'+i" @click.stop="onClickItem(item)"
-           :class="{'jw-list-active': i === cursor}">
-        <div>{{item.name}}</div>
+  <div class="jwolfcn-container">
+    <popper
+      :append-to-body="false"
+      root-class="jwolfcn-list"
+      :stop-propagation="true"
+      :prevent-default="false"
+      :delay-on-mouse-out="300"
+      :delay-on-mouse-over="300"
+      trigger="focus">
+      <div class="wrapper">
+        <!--test safri events mmmm
+        <br>
+        bbbb
+        <br>
+        bbbb
+        <br>
+        bbbb
+        <span @click="test()">cccc</span> -->
+        <div class="items-container">
+          <div class="jwolfcn-list-item" v-for="(item, i) in internalItems" :ref="'jwolfcn__item'+i" v-bind:key="'jw__item'+i"
+             v-on:touch="onClickItem($event, item)" @click.stop="onClickItem($event, item)"
+            :class="{'jwolfcn-list-active': i === cursor}">
+            <div>{{item.name}}</div>
+          </div>
+        </div>
       </div>
-    </div>
+      <input type="text" 
+        slot="reference"
+        autocomplete="off"
+        v-bind:value="value"
+        @input="input"
+        v-bind="[$attrs]"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        @blur="blur" @focus="focus"
+        @keyup.enter="keyEnter" @keydown.tab.prevent="keyEnter" 
+        @keydown.up="keyUp" @keydown.down="keyDown"/>
+    </popper>
   </div>
 </template>
 
 <script>
 import {debounce} from 'throttle-debounce'
+import Popper from 'vue-popperjs'
+import 'vue-popperjs/dist/vue-popper.css'
 export default {
   name: 'AutoCompleteInput',
   inheritAttrs: false,
+  components: {
+    Popper
+  },
   props: {
     value: null,
     getLabel: {
@@ -48,6 +74,10 @@ export default {
       selectedItem: null,
       internalItems: []
     };
+  },
+  mounted() {
+    /* eslint-disable no-alert, no-console */
+    // console.log('test')
   },
   computed: {
     hasItems() {
@@ -107,7 +137,10 @@ export default {
         this.showList = false
       }, 200)
     },
-    onClickItem(item) {
+    onClickItem(e, item) {
+      /* eslint-disable no-alert, no-console */
+      // console.log(e)
+      // alert(e)
       this.showList = false
       this.__selectItem(item)
     },
@@ -116,7 +149,7 @@ export default {
       if (this.cursor > this.minCursor) {
         this.cursor --
         this.__itemView(
-          this.$el.getElementsByClassName('jw-list-item')[
+          this.$el.getElementsByClassName('jwolfcn-list-item')[
             this.cursor
           ]
         );
@@ -126,7 +159,7 @@ export default {
       if (this.cursor < this.internalItems.length - 1) {
         this.cursor ++
         this.__itemView(
-          this.$el.getElementsByClassName('jw-list-item')[
+          this.$el.getElementsByClassName('jwolfcn-list-item')[
             this.cursor
           ]
         );
@@ -154,7 +187,7 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-.jw__container {
+.jwolfcn-container {
   position: relative;
   input {
     width: 100%;
@@ -162,19 +195,22 @@ export default {
     outline: none;
     -webkit-appearance: none;
   }
-  .jw-list {
-    position: absolute;
+  .items-container {
     max-height: 200px;
+    max-height: 200px;
+    overflow: auto;
     border: 1px solid #eee;
-    overflow-y: auto;
-    top: 25px;
-    .jw-list-item {
+    // border: 1px solid #eee;
+    .popper {
+      box-shadow: none;
+    }
+    .jwolfcn-list-item {
       padding: 4px 7px;
       min-width: 50px;
       cursor: pointer;
       text-align: center;
       background: #fff;
-      &:hover, &.jw-list-active {
+      &:hover, &.jwolfcn-list-active {
         background: #20a0ff;
         color: #fff;
       }

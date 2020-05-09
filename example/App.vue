@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <p>测试： <input /></p>
     <img alt="Vue logo" src="./assets/logo.png">
     <multi-items-input
       :v-model="arr"
