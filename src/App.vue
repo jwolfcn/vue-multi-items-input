@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-    <p>测试： <input /></p>
     <img alt="Vue logo" src="./assets/logo.png">
     <multi-items-input
       v-model="arr"
       :fetch="search"
       placeholder="请输入关键字"
-      :height="100"
+      :height="50"
       separator=";"
       :selection-only="false"
       @select="select"

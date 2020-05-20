@@ -3,6 +3,7 @@
     <input-item
       v-for="(item,i) in selectedItems"
       :key="'selectedItems'+i"
+      :uId="'selectedItems'+i"
       :name="item.name"
       :editable="true"
       @deleteClick="() => {return deleteItemGenerator(i)(item)}"
@@ -112,6 +113,7 @@ export default {
         });
         this.$emit('select', this.selectedItems, item);
         this.$emit('input', this.selectedItems)
+        this.marked = ''
       };
     },
     /**
@@ -135,6 +137,7 @@ export default {
         }
         this.$emit('delete', item, this.selectedItems)
         this.$emit('input', this.selectedItems)
+        this.marked = ''
       }
     },
     setLastItemFocus () {
@@ -145,7 +148,7 @@ export default {
       component && component.$el.querySelector('input').focus()
     },
     handleItemClick (item) {
-      this.marked = item.name
+      this.marked = item.uId
     }
   },
   watch: {
@@ -164,15 +167,15 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .jw-container {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
+  font-smoothing: grayscale;
   color: #2c3e50;
   // margin-top: 60px;
   background-color: #e5e9f2;
   padding: 5px;
   text-align: left;
   cursor: text;
-  // overflow-y: auto;
+  overflow-y: auto;
   &:after {
     content: "";
     display: block;

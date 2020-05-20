@@ -1,30 +1,5 @@
 <template lang="html">
   <div class="jwolfcn-container">
-    <popper
-      :append-to-body="false"
-      root-class="jwolfcn-list"
-      :stop-propagation="true"
-      :prevent-default="false"
-      :delay-on-mouse-out="300"
-      :delay-on-mouse-over="300"
-      trigger="focus">
-      <div class="wrapper">
-        <!--test safri events mmmm
-        <br>
-        bbbb
-        <br>
-        bbbb
-        <br>
-        bbbb
-        <span @click="test()">cccc</span> -->
-        <div class="items-container">
-          <div class="jwolfcn-list-item" v-for="(item, i) in internalItems" :ref="'jwolfcn__item'+i" v-bind:key="'jw__item'+i"
-             v-on:touch="onClickItem($event, item)" @click.stop="onClickItem($event, item)"
-            :class="{'jwolfcn-list-active': i === cursor}">
-            <div>{{item.name}}</div>
-          </div>
-        </div>
-      </div>
       <input type="text" 
         slot="reference"
         autocomplete="off"
@@ -35,20 +10,39 @@
         :disabled="disabled"
         @blur="blur" @focus="focus"
         @keyup.enter="keyEnter" @keydown.tab.prevent="keyEnter" 
-        @keydown.up="keyUp" @keydown.down="keyDown"/>
-    </popper>
+        @keydown.up="keyUp" @keydown.down="keyDown"
+        ref="input"/>
+      <autoCompleteSuggestions
+        :class="[popperClass ? popperClass : '']"
+        :append-to-body="true"
+        ref="suggestions"
+        :placement="placement"
+        :value="show"
+        :zIndexOfPopper="zIndexOfPopper"
+      >
+        <div class="wrapper">
+          <div class="items-container">
+            <div class="jwolfcn-list-item" v-for="(item, i) in internalItems" :ref="'jwolfcn__item'+i" v-bind:key="'jw__item'+i"
+              @click.stop.prevent="onClickItem($event, item)"
+              :class="{'jwolfcn-list-active': i === cursor}">
+              <div>{{item.name}}</div>
+            </div>
+          </div>
+        </div>
+      </autoCompleteSuggestions>
   </div>
 </template>
 
 <script>
 import {debounce} from 'throttle-debounce'
-import Popper from 'vue-popperjs'
+// import Popper from 'vue-popperjs'
 import 'vue-popperjs/dist/vue-popper.css'
+import autoCompleteSuggestions from './AutoCompleteSuggestions'
 export default {
   name: 'AutoCompleteInput',
   inheritAttrs: false,
   components: {
-    Popper
+    autoCompleteSuggestions
   },
   props: {
     value: null,
@@ -65,14 +59,17 @@ export default {
     placeholder: String,
     disabled: { type: Boolean, default: false },
     keepOpen: { type: Boolean, default: false },
-    selectionOnly: { type: Boolean, default: false }
+    selectionOnly: { type: Boolean, default: false },
+    placement: {},
+    zIndexOfPopper: {type: Number}
   },
   data() {
     return {
       showList: false,
       cursor: -1,
       selectedItem: null,
-      internalItems: []
+      internalItems: [],
+      popperClass: 'items-container'
     };
   },
   mounted() {
@@ -149,9 +146,10 @@ export default {
       if (this.cursor > this.minCursor) {
         this.cursor --
         this.__itemView(
-          this.$el.getElementsByClassName('jwolfcn-list-item')[
-            this.cursor
-          ]
+          // this.$el.getElementsByClassName('jwolfcn-list-item')[
+          //   this.cursor
+          // ]
+          this.$refs['jwolfcn__item' + this.cursor][0]
         );
       }
     },
@@ -159,9 +157,10 @@ export default {
       if (this.cursor < this.internalItems.length - 1) {
         this.cursor ++
         this.__itemView(
-          this.$el.getElementsByClassName('jwolfcn-list-item')[
-            this.cursor
-          ]
+          // this.$el.getElementsByClassName('jwolfcn-list-item')[
+          //   this.cursor
+          // ]
+          this.$refs['jwolfcn__item' + this.cursor][0]
         );
       }
     },
@@ -195,25 +194,28 @@ export default {
     outline: none;
     -webkit-appearance: none;
   }
-  .items-container {
-    max-height: 200px;
-    max-height: 200px;
-    overflow: auto;
-    border: 1px solid #eee;
-    // border: 1px solid #eee;
-    .popper {
-      box-shadow: none;
-    }
-    .jwolfcn-list-item {
-      padding: 4px 7px;
-      min-width: 50px;
-      cursor: pointer;
-      text-align: center;
-      background: #fff;
-      &:hover, &.jwolfcn-list-active {
-        background: #20a0ff;
-        color: #fff;
-      }
+}
+.items-container {
+  max-height: 200px;
+  max-height: 200px;
+  color: #2c3e50;
+  overflow: auto;
+  border: 1px solid #eee;
+  // border: 1px solid #eee;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  .popper {
+    box-shadow: none;
+  }
+  .jwolfcn-list-item {
+    padding: 4px 7px;
+    min-width: 50px;
+    cursor: pointer;
+    text-align: center;
+    background: #fff;
+    &:hover, &.jwolfcn-list-active {
+      background: #20a0ff;
+      color: #fff;
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="point-container" @click.prevent="itemClick">
-    <span class="label" :class="{marked: name === marked}">{{name + suffix}}</span>
+    <span class="label" :class="{marked: uId === marked}">{{name + suffix}}</span>
     <autocomplete
       @input.native="inputHandle"
       v-model="v"
@@ -49,7 +49,8 @@ export default {
     fetchSuggestions: {
       type: Function
     },
-    selectionOnly: { type: Boolean, default: false }
+    selectionOnly: { type: Boolean, default: false },
+    uId: {type: String}
   },
   data () {
     return {
@@ -61,7 +62,7 @@ export default {
     itemClick () {
       if (this.editable) {
         this.__focus()
-        this.$emit('itemClick', {id: this.id, name: this.name})
+        this.$emit('itemClick', {id: this.id, name: this.name, uId: this.uId})
         return
       }
     },
@@ -97,8 +98,19 @@ export default {
   .label {
     float: left;
     &.marked {
-      background-color: rgb(189, 189, 190);
+      background-color: #528bcb;
+      color: #fff;
+      &:hover {
+        background-color: #528bcb;
+        color: #fff;
+      }
     }
+    &:hover {
+      background-color:#fffeee;
+      color: #2c3e50;
+    }
+    // background-color: #f2f2f2;
+    padding:1px 2px;
   }
   .place-hold {
     border: none;
