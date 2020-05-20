@@ -10,6 +10,7 @@
       :selection-only="false"
       @select="select"
       @delete="onDelete"
+      :zIndexOfPopper="9999999"
     />
     <p>{{arr}}</p>
   </div>

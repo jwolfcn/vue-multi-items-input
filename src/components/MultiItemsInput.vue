@@ -16,6 +16,7 @@
       :selection-only="selectionOnly"
       :marked="marked"
       @itemClick="handleItemClick"
+      :zIndexOfPopper="zIndexOfPopper"
     ></input-item>
     <auto-complete-input
       ref="pre-input"
@@ -27,6 +28,7 @@
       :fetch="fetch"
       :placeholder="placeholder"
       :selection-only="selectionOnly"
+      :zIndexOfPopper="zIndexOfPopper"
     ></auto-complete-input>
   </div>
 </template>
@@ -65,6 +67,9 @@ export default {
     selectionOnly: {
       type: Boolean,
       default: false
+    },
+    zIndexOfPopper: {
+      type: Number
     }
   },
   data() {

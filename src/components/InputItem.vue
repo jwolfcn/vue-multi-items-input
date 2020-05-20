@@ -13,6 +13,7 @@
       @select="select"
       :fetch="fetchSuggestions"
       :selection-only="selectionOnly"
+      :zIndexOfPopper="zIndexOfPopper"
     >
     </autocomplete>
     <pre style="font-size: 16px;visibility: hidden;position: fixed;z-index: -1;bottom: -99999px;" ref="sensor">{{v}}</pre>
@@ -50,7 +51,8 @@ export default {
       type: Function
     },
     selectionOnly: { type: Boolean, default: false },
-    uId: {type: String}
+    uId: {type: String},
+    zIndexOfPopper: {type: Number}
   },
   data () {
     return {
