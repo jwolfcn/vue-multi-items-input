@@ -74,8 +74,7 @@ export default {
   },
   data() {
     return {
-      test: "test",
-      inputWidth: "60",
+      // inputWidth: "60",
       editable: true,
       selectedItems: [],
       keywords: "",

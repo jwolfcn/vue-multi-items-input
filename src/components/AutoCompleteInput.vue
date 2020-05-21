@@ -145,7 +145,7 @@ export default {
     keyUp() {
       if (this.cursor > this.minCursor) {
         this.cursor --
-        this.__itemView(
+        this.$refs['jwolfcn__item' + this.cursor] && this.__itemView(
           // this.$el.getElementsByClassName('jwolfcn-list-item')[
           //   this.cursor
           // ]
@@ -156,7 +156,7 @@ export default {
     keyDown() {
       if (this.cursor < this.internalItems.length - 1) {
         this.cursor ++
-        this.__itemView(
+        this.$refs['jwolfcn__item' + this.cursor] && this.__itemView(
           // this.$el.getElementsByClassName('jwolfcn-list-item')[
           //   this.cursor
           // ]
@@ -197,7 +197,7 @@ export default {
 }
 .items-container {
   max-height: 200px;
-  max-height: 200px;
+  // max-height: 200px;
   color: #2c3e50;
   overflow: auto;
   border: 1px solid #eee;

@@ -72,7 +72,7 @@ export default {
         } else {
           cb(list);
         }
-      }, 100);
+      }, 500);
     },
     select (item, i) {
       this.data = JSON.stringify(item) + i

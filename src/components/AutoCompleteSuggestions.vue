@@ -1,5 +1,5 @@
 <template>
-  <transition name="el-zoom-in-top" @after-leave="doDestroy">
+  <transition name="drawer" @after-leave="doDestroy">
     <div v-show="showPopper">
         <p v-if="!parent.hideLoading && parent.loading"><i class="icon-loading"></i></p>
         <slot v-else>
@@ -48,4 +48,12 @@
   };
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
+.drawer-enter-active, .drawer-leave-active {
+  transition: all .1s;
+  // transform: translateY(-10px)
+}
+.drawer-enter, .drawer-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  // transform: translateY(0);
+}
 </style>
