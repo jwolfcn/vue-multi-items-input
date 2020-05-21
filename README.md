@@ -60,6 +60,7 @@ For more details, refer to the example directory.
 | fetch | Function(queryStr, done) || Triggered to request for suggestion. Keywords would passed as the first parameter. The second parameter is a callback function which notifys the request is completed. |
 |trigger-on-focus|Boolean| true| Whether trigger the  fetch function on focus.|
 |selection-only|Boolean| false| Whether the user should select from the suggestion.|
+|zIndexOfPopper|Number| -| Set the z-index of the popper.|
 
 
 ## Events
