@@ -17,12 +17,10 @@
 </template>
 
 <script>
-import MultiItemsInput from './components/MultiItemsInput.vue'
 
 export default {
   name: 'app',
   components: {
-    MultiItemsInput
   },
   data () {
     return {
