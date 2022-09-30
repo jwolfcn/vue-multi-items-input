@@ -67,8 +67,8 @@ For more details, refer to the example directory.
 ## Events
 | event | Parameters | description |
 |-------|------|-------------|
-| delete | Array, Object | The first parameter is the array of the selected items. Second is the item which deleted. |
-| select | Object, Array | The first parameter is the item added. Second is the array of the selected items.  |
+| delete | Object, Array | The first parameter is the item which deleted. Second is the array of the selected items.  |
+| select | Array, Object | The first parameter is the array of the selected items. Second is the item added.|
 
 ## License
 
