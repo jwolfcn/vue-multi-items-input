@@ -1,5 +1,6 @@
 <template>
-  <div class="jw-container" :style="{height: height + 'px'}" @click.self.prevent="setLastItemFocus">
+  <div class="jw-container" :style="{height: height + 'px', width: 'auto'}" @click.self.prevent="setLastItemFocus">
+    <div>
     <input-item
       v-for="(item,i) in selectedItems"
       :key="'selectedItems'+i"
@@ -30,6 +31,7 @@
       :selection-only="selectionOnly"
       :zIndexOfPopper="zIndexOfPopper"
     ></auto-complete-input>
+  </div>
   </div>
 </template>
 
@@ -171,8 +173,6 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .jw-container {
-  font-smoothing: antialiased;
-  font-smoothing: grayscale;
   color: #2c3e50;
   // margin-top: 60px;
   background-color: #e5e9f2;
@@ -180,6 +180,26 @@ export default {
   text-align: left;
   cursor: text;
   overflow-y: auto;
+  &::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 6px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 6px;
+  }
+  &::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 6px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0);
+    background: rgba(51, 51, 51, 0.14);
+  }
+  &::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    box-shadow: inset 0 0 5px rgba(255, 255, 255, 0);
+    border-radius: 6px;
+    background: transparent;
+  }
+  input {
+    width: 100%;
+    border: none;
+    outline: none;
+    appearance: none;
+  }
   &:after {
     content: "";
     display: block;
@@ -188,7 +208,7 @@ export default {
   .pre-input {
     border: none;
     outline: none;
-    -webkit-appearance: none;
+    appearance: none;
     border-radius: 0;
     background-color: transparent;
     font-size: 16px;

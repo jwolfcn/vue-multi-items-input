@@ -117,7 +117,7 @@ export default {
   .place-hold {
     border: none;
     outline: none;
-    -webkit-appearance: none;
+    appearance: none;
     background: transparent;
     width: 6px;
     font-size: 16px;
@@ -139,6 +139,7 @@ export default {
       float: left;
       margin-top: 3px;
       color: #5f5f6e;
+      width: 100%;
       &::placeholder {
         color:rgb(129, 127, 127);
         font-size: 16px;

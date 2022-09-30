@@ -20,13 +20,11 @@
         :value="show"
         :zIndexOfPopper="zIndexOfPopper"
       >
-        <div class="wrapper">
-          <div class="items-container">
-            <div class="jwolfcn-list-item" v-for="(item, i) in internalItems" :ref="'jwolfcn__item'+i" v-bind:key="'jw__item'+i"
-              @click.stop.prevent="onClickItem($event, item)"
-              :class="{'jwolfcn-list-active': i === cursor}">
-              <div>{{item.name}}</div>
-            </div>
+        <div class="items-container">
+          <div class="jwolfcn-list-item" v-for="(item, i) in internalItems" :ref="'jwolfcn__item'+i" v-bind:key="'jw__item'+i"
+            @click.stop.prevent="onClickItem($event, item)"
+            :class="{'jwolfcn-list-active': i === cursor}">
+            <div>{{item.name}}</div>
           </div>
         </div>
       </autoCompleteSuggestions>
@@ -69,7 +67,7 @@ export default {
       cursor: -1,
       selectedItem: null,
       internalItems: [],
-      popperClass: 'items-container'
+      popperClass: 'jwolfcn-wrapper'
     };
   },
   mounted() {
@@ -188,22 +186,33 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 .jwolfcn-container {
   position: relative;
-  input {
-    width: 100%;
-    border: none;
-    outline: none;
-    -webkit-appearance: none;
-  }
+}
+.jwolfcn-wrapper {
+  overflow: hidden;
 }
 .items-container {
   max-height: 200px;
   // max-height: 200px;
   color: #2c3e50;
-  overflow: auto;
+  overflow-y: auto;
   border: 1px solid #eee;
   // border: 1px solid #eee;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  &::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 6px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 6px;
+  }
+  &::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 6px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0);
+    background: rgba(51, 51, 51, 0.14);
+  }
+  &::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    box-shadow: inset 0 0 5px rgba(255, 255, 255, 0);
+    border-radius: 6px;
+    background: transparent;
+  }
   .popper {
     box-shadow: none;
   }

@@ -11,6 +11,7 @@
       :selection-only="true"
       @select="select"
       @delete="onDelete"
+      style="width: 500px"
     />
     <p>{{arr}}</p>
   </div>
