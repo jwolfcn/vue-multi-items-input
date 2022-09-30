@@ -33,7 +33,7 @@
     "jest-transform-stub": "^2.0.0",
     "sass-loader": "^8.0.0",
     "vue-jest": "^3.0.5",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {
