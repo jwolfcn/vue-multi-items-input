@@ -1,6 +1,6 @@
 {
   "name": "multi-items-input",
-  "version": "0.2.0",
+  "version": "1.0.3",
   "description": "Vue Components. 类似邮箱地址栏的输入，自动提示补全，退格键删除，纯键盘操作可以快捷完成多项选择。",
   "author": "Jwolf <liangjames@icloud.com>",
   "homepage": "https://jwolf.cn",
@@ -14,7 +14,6 @@
   "dependencies": {
     "@vue/test-utils": "^1.0.0-beta.29",
     "core-js": "^3.3.2",
-    "node-sass": "^4.14.1",
     "throttle-debounce": "^2.1.0",
     "vue": "^2.6.10",
     "vue-popperjs": "^2.3.0"
@@ -34,6 +33,7 @@
     "jest-transform-stub": "^2.0.0",
     "sass-loader": "^8.0.0",
     "vue-jest": "^3.0.5",
+    "node-sass": "^4.14.1",
     "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {

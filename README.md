@@ -61,6 +61,7 @@ For more details, refer to the example directory.
 |trigger-on-focus|Boolean| true| Whether trigger the  fetch function on focus.|
 |selection-only|Boolean| false| Whether the user should select from the suggestion.|
 |zIndexOfPopper|Number| -| Set the z-index of the popper.|
+|disabled|Boolean| false| Set input editable|
 
 
 ## Events

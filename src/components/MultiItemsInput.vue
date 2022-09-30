@@ -1,12 +1,11 @@
 <template>
   <div class="jw-container" :style="{height: height + 'px', width: 'auto'}" @click.self.prevent="setLastItemFocus">
-    <div>
     <input-item
       v-for="(item,i) in selectedItems"
       :key="'selectedItems'+i"
       :uId="'selectedItems'+i"
       :name="item.name"
-      :editable="true"
+      :editable="!disabled"
       @deleteClick="() => {return deleteItemGenerator(i)(item)}"
       :id="item.id"
       :ref="'jw-selectedItems'+i"
@@ -21,7 +20,7 @@
     ></input-item>
     <auto-complete-input
       ref="pre-input"
-      v-if="selectedItems.length === 0"
+      v-if="!disabled && selectedItems.length === 0"
       class="pre-input"
       v-model="keywords"
       :trigger-on-focus="triggerOnFocus"
@@ -31,7 +30,6 @@
       :selection-only="selectionOnly"
       :zIndexOfPopper="zIndexOfPopper"
     ></auto-complete-input>
-  </div>
   </div>
 </template>
 
@@ -72,6 +70,10 @@ export default {
     },
     zIndexOfPopper: {
       type: Number
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -225,9 +227,19 @@ export default {
       padding-bottom: 10px;
     }
     /deep/ input {
+      border: none;
+      border-radius: 0;
       background-color: transparent;
-      line-height: 100%;
       font-size: 16px;
+      padding: 0;
+      line-height: 100%;
+      outline: none;
+      vertical-align: middle;
+      // height: 25px;
+      float: left;
+      margin-top: 3px;
+      color: #5f5f6e;
+      width: 100%;
     }
   }
 }
